@@ -1,0 +1,94 @@
+@startuml img/jajah_interfaces.png
+
+interface PartnerPlanManagement
+PartnerPlanManagement : getPartnerDefintion (  ) : E:Partner-Definition
+PartnerPlanManagement : getSupportedCountries ( EN:Service Types ) : E:Country
+PartnerPlanManagement : getSupporetdRegions ( Service type,Country ID ) : E:Region
+PartnerPlanManagement : getAvailablePlans (  ) : E:Plan Definition
+PartnerPlanManagement : getCallBackServiceDefinition (  ) : E:Callback Service Definition
+PartnerPlanManagement : getCallInServiceDefition (  ) : E:Phone In service definition
+PartnerPlanManagement : getCallOutServiceDefintion (  ) : void
+
+interface UserManagement
+UserManagement : registerUser ( User ID ) : void
+UserManagement : registerUserWithPhones ( E:User Phone ) : void
+UserManagement : registerUserWithFullDetails ( E:User ) : User ID
+UserManagement : getUser (  ) : E:User
+UserManagement : getUserID (  ) : User ID
+UserManagement : getUserPhones (  ) : E:User Phone
+UserManagement : getUserPassword (  ) : User Password
+UserManagement : getUserProfile (  ) : E:User Profile
+UserManagement : updateUser ( external user ID,password,email,E:User Phone,E:User Profile,E:finger print data ) : void
+UserManagement : updateUserPhones ( E:User Phone ) : void
+UserManagement : updateUserProfile ( E:User Profile ) : void
+UserManagement : updateUserPassword ( password ) : void
+UserManagement : unregisterUser (  ) : void
+UserManagement : registerPlan ( Plan definition id,Monthly  renewal  charge,Yearly renewalcharge,Balance autoTopUp yes\no,Balance autoTopUp amount - Currency ammount,registration payment amount Currecy amount,E:User New Payment Method ) : Plan registration Id
+UserManagement : updatePlanTopUpSettings ( Plan registration  id,Balance autoTopUp yes\no,Balance autoTopUp amount  currency amount ) : void
+UserManagement : updatePlanPaymetMethod ( Plan registration id,E:User New Payment Method ) : void
+UserManagement : topupPlan ( Plan Registration ID,E:Currency Amount ) : Payment transaction ID
+UserManagement : topupPlanWithNewPaymentMethod ( Plan Registration ID,E:User New Payment Method,E:Currency Amount ) : Payment transaction ID
+UserManagement : RefundPayment ( Payment transaction ID,E:Currency Amount ) : void
+UserManagement : unregisterPlan ( Plan registration id ) : void
+UserManagement : updatePlanRegistrationStatus ( Plan registration id,EN:Plan registration statuses ) : void
+UserManagement : getUserAccount (  ) : E:Account
+UserManagement : doesUserExists (  ) : Boolean
+UserManagement : validateUser ( Password ) : Boolean
+UserManagement : GetUserPlanRegistrations (  ) : E:Plan Registration
+UserManagement : GetPlanPaymentMethod ( PlanRegistrationID ) : E:User Payment Method
+UserManagement : GetPlanBillingInformation ( PlanRegistrationID ) : void
+UserManagement : GetCallBackServiceRegistration ( Plan registration ID ) : Callbackservice registration object
+UserManagement : GetTopUpOptions ( plan registration id ) : array of options
+UserManagement : GetPlanRechargeSettings ( plan registration id ) : user's topup options
+UserManagement : GetUserPaymentHistory (  ) : E:Payment record
+UserManagement : updateUserBillingInfo ( plan registration id ) : void
+UserManagement : getWhiteListedDestionationRules ( Plan registration ID,EN:Service Types ) : E:White List destionation rules
+UserManagement : addWhiteListLDestination ( Plan Registration ID,EN:Service Types,E:White List Destination ) : void
+
+interface PhoneOutMapping
+PhoneOutMapping : getMappings ( user id,plan registration id ) : E:Phone out mapping
+PhoneOutMapping : addPhoneOutMapping ( plan registration id,user source number,DID  region,mapping's destination number,mapping's Name ) : assigned DID
+PhoneOutMapping : updatePhoneOutMapping ( plan registration id,user source number,existing DID,new destination number,New mapping Name ) : void
+
+interface PoolManagement
+PoolManagement : getPhoneInList ( Country ID ) : E:Phone In Allocation Data
+PoolManagement : holdPhoneIn ( Hold Key,Duration ) : Expiration date & time
+PoolManagement : releaseHeldPhoneIn ( Hold Key ) : void
+PoolManagement : allocatePhoneIn ( Plan registration ID,DID,Destination,Hold Key ) : void
+PoolManagement : updatePhoneInDestination ( Destination ) : void
+PoolManagement : updatePhoneInAllocation ( Existing plan registration id,DID,New user id,New plan registration id ) : void
+PoolManagement : deallocatePhoneIn ( Plan registration ID,DID ) : void
+PoolManagement : deallocateAndHoldPhoneIn ( Plan registration ID,DID,Hold key,Duration ) : void
+PoolManagement : allocateAvailablePhoneIn ( Plan registration Id,Country ID,Region id,Destination ) : DID
+PoolManagement : getPhoneIn (  ) : E:Phone In
+PoolManagement : getUserIdByPhoneIn (  ) : User Id
+PoolManagement : getCountriesPhoneInPoolInfo (  ) : E:Country PhoneIn Pool info
+PoolManagement : getRegionsPhoneInPoolInfo ( Country ID ) : E:Region PhoneIn pool info
+
+interface CallManagement
+CallManagement : initCallBack ( User id,Plan registration id,Partner Data,Source Participant (Participant),Destination Participant (Participant) ) : call ID
+CallManagement : initValidationCall (  ) : E:InitCallResponse
+CallManagement : getCallStatus (  ) : E:Call Status
+
+interface SMSmanagement
+SMSmanagement : sendSMS ( user id,Plan registration id,application id (New),Sender,Recipients,Text,Delivery report flag ) : E:SMS Accept Report
+SMSmanagement : getSMSStatus ( SMS ID ) : #¡REF!
+SMSmanagement : sendSMSToDID ( Plan registration id,establishment source,application id (New),source number,Destination DID  (n),Text,Delivery report flag ) : SMS ID
+
+interface Utilities
+
+interface CallingCard
+CallingCard : provisionrCallingCard ( uniqueCardNumber,Pin code,Initial balance - currency ammount ) : void
+CallingCard : registerCallingCard ( Pin code,botification preference,Plan definition id,Initial balance - currency ammount ) : Plan registration Id
+CallingCard : updateCallingCardRegistrationStatus ( Plan registration Id,EN:Calling card status ) : void
+CallingCard : unregisterCallinCard ( Plna registraion id ) : void
+CallingCard : getCallingCard (  ) : E:Calling Card
+CallingCard : getCallinCardPlanRegistration (  ) : Plan registration Id
+CallingCard : authenticateCallingCard ( Pin code,phone number ) : boolean
+CallingCard : topUpCallingCard ( Pin code,plan registration id,E:Currency Amount,parner  payment transaction ID ) : void
+CallingCard : updateCallingCardPinCode ( Pin code,phone number,new pin code ) : void
+CallingCard : updateCallingCardNotificationpreference ( plan registration id,notification preference ) : void
+CallingCard : getCallingCardPhones (  ) : void
+CallingCard : updatecallingCardPhones (  ) : void
+CallingCard : getCallingCardpaymentHistory (  ) : void
+@enduml

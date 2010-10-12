@@ -1,0 +1,336 @@
+@startuml img/jajah_entities.png
+
+class ECurrencyAmount
+ECurrencyAmount : E:Currency
+ECurrencyAmount : Amount
+
+class ECurrency
+ECurrency : Currency ID (iso - xxx)
+ECurrency : Currency Name
+
+class ECountry
+ECountry : Country ID (iso-yyy)
+ECountry : Country name
+
+class ELimit
+ELimit : EN:PeriodType
+ELimit : Period length
+ELimit : Limit for period
+
+class EResultMessage
+EResultMessage : Return code
+EResultMessage : Return message
+EResultMessage : Success/Failure
+
+class EDialcodesandtarifftable
+EDialcodesandtarifftable : E:Dial code prefix and tarrif
+
+class EDialcodeprefixandtarrif
+EDialcodeprefixandtarrif : Dial code prefix
+EDialcodeprefixandtarrif : Country ID (iso-yyy)
+EDialcodeprefixandtarrif : E:service tariff
+
+class Eservicetariff
+Eservicetariff : service type
+Eservicetariff : E:Currency Amount
+
+class EPartnerPaymentMethod
+EPartnerPaymentMethod : Payment Method name
+EPartnerPaymentMethod : Payment method defintion  ID
+EPartnerPaymentMethod : EN:Payment Method Type
+EPartnerPaymentMethod : Credit Card names
+EPartnerPaymentMethod : MSISDN  Prefixs
+
+class ERegion
+ERegion : Region ID
+ERegion : Region name
+ERegion : E:Country
+
+class EPartnerDefinition
+EPartnerDefinition : Partner ID
+EPartnerDefinition : Partner name
+EPartnerDefinition : E:Currency
+EPartnerDefinition : E:Partner Payment Method
+EPartnerDefinition : E:Region
+EPartnerDefinition : E:Country
+
+class EPlanDefinition
+EPlanDefinition : Plan definition ID
+EPlanDefinition : Plan name
+EPlanDefinition : EN:Plan Types
+EPlanDefinition : Description
+EPlanDefinition : E:Currency
+EPlanDefinition : Last update date and time
+EPlanDefinition : Plan eligibility criteria's
+EPlanDefinition : Max user registrations
+EPlanDefinition : E:Plan subscription model
+EPlanDefinition : E:Plan balance topup model
+EPlanDefinition : E:Phone In service definition
+EPlanDefinition : E:Callback Service Definition
+EPlanDefinition : E:PhouneOut Service defintion
+EPlanDefinition : SIP phone out service definition
+
+class EPlansubscriptionmodel
+EPlansubscriptionmodel : Plan Monthly registration charge
+EPlansubscriptionmodel : Plan Monthly renual charge
+EPlansubscriptionmodel : Plan Yearly registration charge
+EPlansubscriptionmodel : Plan Yearly renewal charge
+
+class EPlanbalancetopupmodel
+EPlanbalancetopupmodel : support auto top up  flag
+EPlanbalancetopupmodel : auto topup threshold (CurrencyAmount)
+EPlanbalancetopupmodel : Low balance threshold   (CurrencyAmount)
+EPlanbalancetopupmodel : low balance threshold notification key
+EPlanbalancetopupmodel : Top up amounts  (CurrencyAmount)
+
+class EPhoneInservicedefinition
+EPhoneInservicedefinition : E:PhoneIn Service Limits
+EPhoneInservicedefinition : Country ID
+
+class ECallbackServiceDefinition
+ECallbackServiceDefinition : initiate call only from user phones  flag
+ECallbackServiceDefinition : Call white listed   destinations only flag
+ECallbackServiceDefinition : Country ID
+ECallbackServiceDefinition : Region ID
+ECallbackServiceDefinition : E:Service charging model
+ECallbackServiceDefinition : E:Callback-PhoneOut Service Limits
+
+class EServicechargingmodel
+EServicechargingmodel : Connection fee / service fee.
+EServicechargingmodel : Tarriff charging
+EServicechargingmodel : phones and tarrif table ID
+EServicechargingmodel : Pay for n first seconds
+
+class EPhoneInServiceLimits
+EPhoneInServiceLimits : Max call duration
+EPhoneInServiceLimits : Max Phone in numbers
+
+class ECallbackPhoneOutServiceLimits
+ECallbackPhoneOutServiceLimits : Max call duration
+ECallbackPhoneOutServiceLimits : Max minutes per month
+ECallbackPhoneOutServiceLimits : Max calls in day
+ECallbackPhoneOutServiceLimits : Max calls in  week
+ECallbackPhoneOutServiceLimits : Max calls in month
+ECallbackPhoneOutServiceLimits : Max WL destinations
+ECallbackPhoneOutServiceLimits : Max  WL destinations updates for period (Limit)
+
+class EPhouneOutServicedefintion
+EPhouneOutServicedefintion : E:Callback-PhoneOut Service Limits
+EPhouneOutServicedefintion : E:Region
+EPhouneOutServicedefintion : E:Country
+EPhouneOutServicedefintion : Call white listed   destinations only flag
+
+class ECountryPhoneInPoolinfo
+ECountryPhoneInPoolinfo : E:Country
+ECountryPhoneInPoolinfo : Total Number of phone in DID's
+ECountryPhoneInPoolinfo : Number of allocated DID's
+ECountryPhoneInPoolinfo : Number of avilable phone in DID's
+ECountryPhoneInPoolinfo : Number of held phone in DID's
+
+class ERegionPhoneInpoolinfo
+ERegionPhoneInpoolinfo : Region ID
+ERegionPhoneInpoolinfo : Total Number of phone in DID's
+ERegionPhoneInpoolinfo : Number of allocated DID's
+ERegionPhoneInpoolinfo : Number of avilable phone in DID's
+ERegionPhoneInpoolinfo : Number of held phone in DID's
+
+class EPhoneIn
+EPhoneIn : DID
+EPhoneIn : EN:DID State Type
+EPhoneIn : E:Phone In Hold Data
+EPhoneIn : E:Phone In Allocation Data
+
+class EPhoneInHoldData
+EPhoneInHoldData : Hold Key
+EPhoneInHoldData : Hold Expiration
+
+class EPhoneInAllocationData
+EPhoneInAllocationData : Plan definition id
+EPhoneInAllocationData : User ID
+EPhoneInAllocationData : Plan registration id
+EPhoneInAllocationData : Destination
+
+class ECountryPhoneOutPoolinfo
+ECountryPhoneOutPoolinfo : Country ID
+ECountryPhoneOutPoolinfo : Total Number of phone Out DID's
+
+class ERegionPhoneOutpoolinfo
+ERegionPhoneOutpoolinfo : Region ID
+ERegionPhoneOutpoolinfo : Total Number of phone Out DID's
+
+class EPhoneOut
+EPhoneOut : DID
+
+class EUser
+EUser : Partner id
+EUser : User ID
+EUser : Password
+EUser : E:User Profile
+EUser : E:Account
+EUser : E:User Phone
+
+class EUserProfile
+EUserProfile : First name
+EUserProfile : last name
+EUserProfile : email
+EUserProfile : time Zone
+
+class EUserPhone
+EUserPhone : EN: User Phone Types
+EUserPhone : User phone number
+
+class EAccount
+EAccount : User ID
+EAccount : Balance (CurrencyAmount)
+EAccount : E:User Payment Method
+EAccount : E:Plan Registration
+
+class EUserNewPaymentMethod
+EUserNewPaymentMethod : Payment method defintion ID
+EUserNewPaymentMethod : EN:Payment Method Type
+EUserNewPaymentMethod : E:Credit Card Data
+EUserNewPaymentMethod : E:Partner Charging Data
+
+class EUserPaymentMethod
+EUserPaymentMethod : User payment method ID
+EUserPaymentMethod : Payment method defintion ID
+EUserPaymentMethod : EN:Payment Method Type
+EUserPaymentMethod : E:Credit Card Data
+EUserPaymentMethod : E:Partner Charging Data
+
+class ECreditCardData
+ECreditCardData : Credit Card Number
+ECreditCardData : CVC
+ECreditCardData : Valid until - date
+ECreditCardData : Payment mean Owner First Name
+ECreditCardData : Payment mean  Qwner Last Name
+ECreditCardData : Billing address
+ECreditCardData : Billing City
+ECreditCardData : Billing ZipCode
+ECreditCardData : Billing Cointry ID
+
+class EPartnerChargingData
+EPartnerChargingData : MSISDN
+
+class EPlanRegistration
+EPlanRegistration : Plan registration Id
+EPlanRegistration : Plan definition Id
+EPlanRegistration : EN:Plan registration statuses
+EPlanRegistration : Registration date and time
+EPlanRegistration : E:User Payment Method
+EPlanRegistration : E:Balance Parameters
+EPlanRegistration : Auto mothly renewal - yes/no
+EPlanRegistration : Auto yearly renewal - yes/no
+EPlanRegistration : Monthly renewal charging  amount
+EPlanRegistration : Yearly renewal charging amount
+EPlanRegistration : Counter: user registrations
+EPlanRegistration : E:Callback service registration
+EPlanRegistration : E:Phone out service registration
+EPlanRegistration : E:Phone in service registration
+EPlanRegistration : E:SIP Phone out service registration
+
+class EBalanceParameters
+EBalanceParameters : Balance Auto top up - Yes / No
+EBalanceParameters : Balance auto top up threshold (Currency amount)
+EBalanceParameters : Balance top up amount (CurrencyAmount)
+
+class EPaymentrecord
+
+class ECallbackserviceregistration
+ECallbackserviceregistration : E:White List destionation rules
+ECallbackserviceregistration : E:Service Counters
+
+class EServiceCounters
+EServiceCounters : Counter: Last day calls
+EServiceCounters : Counter: Last week calls
+EServiceCounters : Counter:Last month calls
+EServiceCounters : Counter:Last month minutes
+
+class EPhoneoutserviceregistration
+EPhoneoutserviceregistration : E:Phone out mapping
+
+class EPhoneinserviceregistration
+EPhoneinserviceregistration : E:Phone In mapping
+EPhoneinserviceregistration : E:Service Counters
+
+class ESIPPhoneoutserviceregistration
+ESIPPhoneoutserviceregistration : E:Phone out mapping
+
+class EWhiteListdestionationrules
+EWhiteListdestionationrules : E:White List Destination
+EWhiteListdestionationrules : Counter:Number of white list destinations updates
+
+class EWhiteListDestination
+EWhiteListDestination : Destination Phone number
+EWhiteListDestination : Destination name
+EWhiteListDestination : Destination email
+
+class EPhoneInmapping
+EPhoneInmapping : dialInNumber
+EPhoneInmapping : region
+EPhoneInmapping : destination number
+
+class EPhoneoutmapping
+EPhoneoutmapping : dialOutNumber
+EPhoneoutmapping : source number
+EPhoneoutmapping : region Id
+EPhoneoutmapping : destination number
+EPhoneoutmapping : mapping name and email
+
+class ECallingCard
+ECallingCard : Partner ID
+ECallingCard : Unique card number
+ECallingCard : PIN code
+ECallingCard : EN:Calling card status
+ECallingCard : Notification preference
+ECallingCard : E:Account
+ECallingCard : E:User Phone
+
+class ECallflow
+ECallflow : call flow name
+ECallflow : call flow ID
+ECallflow : Display caller id (Yes \ NO)
+ECallflow : array of states and massages
+
+class Ecall
+Ecall : call ID
+Ecall : call flow
+Ecall : call state
+Ecall : initiator
+Ecall : participantsList
+
+class EParticipant
+EParticipant : Phone Number
+EParticipant : Participant display
+
+class ECallRecord
+
+class EInitCallResponse
+EInitCallResponse : Call ID
+EInitCallResponse : Call Duration
+
+class ECallStatus
+ECallStatus : EN:Call status
+ECallStatus : EN:VerificationStatus
+
+class ESMSAcceptReport
+ESMSAcceptReport : SMS ID
+ESMSAcceptReport : Recipient
+ESMSAcceptReport : EN:SMSAcceptReportCodes
+ESMSAcceptReport : Number Of SMS
+
+class EblackList
+EblackList : phone number
+
+class Efingerprintdata
+Efingerprintdata : EN:Action Source
+Efingerprintdata : User IP Address
+Efingerprintdata : Device ID
+Efingerprintdata : Session  CooKie
+Efingerprintdata : User Language
+Efingerprintdata : System Language
+Efingerprintdata : System Time Zone
+Efingerprintdata : Browser Language
+Efingerprintdata : Browser Type
+Efingerprintdata : ISP
+@enduml

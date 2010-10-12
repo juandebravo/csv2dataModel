@@ -1,4 +1,4 @@
-@startuml img/jajah_entities.png
+@startuml img/entities.png
 
 class ECurrencyAmount
 ECurrencyAmount : E:Currency

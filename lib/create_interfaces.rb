@@ -1,25 +1,25 @@
 require 'line_values'
 require 'plantuml_handler'
-require 'excel_handler'
+require 'csv_handler'
 require 'interface'
 
 if __FILE__ == $0
 
   PLANTUML_FOLDER = "/Users/jdbd/bin/"
 
-  ORIGIN_FILE     = "JajahInterfaces.csv"
-  DEST_FILE       = "jajah_interfaces.txt"
-  IMAGE_FILE      = "jajah_interfaces.png"
+  ORIGIN_FILE     = "Interfaces.csv"
+  DEST_FILE       = "interfaces.txt"
+  IMAGE_FILE      = "interfaces.png"
 
   HEADER_LINES    = 4
 
-  excel_handler = ExcelHandler.new(ORIGIN_FILE, ";", HEADER_LINES)
+  csv_handler = CsvHandler.new(ORIGIN_FILE, ";", HEADER_LINES)
 
   # 1. load data
-  data = excel_handler.read_file
+  data = csv_handler.read_file
 
   # 2.- convert CSV data into valid objects
-  interfaces = excel_handler.get_interfaces(data)
+  interfaces = csv_handler.get_interfaces(data)
 
   # 3.- generate file with valid plantUML format
   uml = PlantumlHandler.new
@@ -27,9 +27,9 @@ if __FILE__ == $0
 
   interfaces.each{|interface|
     uml.add ""
-    uml.add "interface #{interface.name}"
+    uml.add_interface(interface.name)
     interface.methods.each{|method|
-      uml.add "#{interface.name} : #{method.name} ( #{method.parameters.join(',')} ) : #{method.output.empty? ? "void" : method.output}"
+      uml.add_method(method.name, method.parameters, method.output)
     }
   }
 

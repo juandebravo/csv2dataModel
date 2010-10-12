@@ -11,6 +11,14 @@ class LineValues
   ENTITY_INDEX      = 1
   ATTRIBUTE_INDEX   = 3
 
+  # Constants that define where the REST Interface data is located
+  REST_INTERFACE_INDEX  = 0
+  REST_METHOD_INDEX     = 0
+  REST_HTTP_VERB_INDEX  = 1
+  REST_URI_INDEX        = 2
+  REST_PARAMETERS_INDEX = 3
+  REST_OUTPUT_INDEX     = 4
+
   # Constructor that gets as parameter an array
   def initialize (*args)
     @values = *args
@@ -24,6 +32,8 @@ class LineValues
       return nil
     end
   end
+
+  # Interface methods
 
   def interface
     get_value(INTERFACE_INDEX)
@@ -41,12 +51,40 @@ class LineValues
     get_value(OUTPUT_INDEX)
   end
 
+  # Entity methods
+
   def entity
     get_value(ENTITY_INDEX)
   end
 
   def attribute
     get_value(ATTRIBUTE_INDEX)
+  end
+
+  # REST methods
+
+  def rest_interface
+    get_value(REST_INTERFACE_INDEX)
+  end
+
+  def rest_method
+    get_value(REST_METHOD_INDEX)
+  end
+
+  def rest_http_verb
+    get_value(REST_HTTP_VERB_INDEX)
+  end
+
+  def rest_uri
+    get_value(REST_URI_INDEX)
+  end
+
+  def rest_parameters
+    get_value(REST_PARAMETERS_INDEX)
+  end
+
+  def rest_output
+    get_value(REST_OUTPUT_INDEX)
   end
 
 end

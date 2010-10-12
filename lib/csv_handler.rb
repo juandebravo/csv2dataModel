@@ -1,9 +1,11 @@
+require 'rubygems'
+require 'faster_csv'
 
 #
 # This class is used to load and parse and Excel and generate objects with
 # Interface and Entity information
 #
-class ExcelHandler
+class CsvHandler
 
   def initialize(path_to_file = nil, separator = nil, omit_lines = 0)
     @path_to_file = path_to_file
@@ -31,6 +33,14 @@ class ExcelHandler
     }
     lines.shift(omit_lines)
     lines
+  end
+
+  def read_csv(path_to_file = nil, omit_lines = -1)
+    path_to_file = path_to_file.nil? ? @path_to_file : path_to_file
+    omit_lines = omit_lines >= 0 ? omit_lines : @omit_lines
+    data = FasterCSV.read(path_to_file)
+    data.shift(omit_lines)
+    data
   end
 
   #
@@ -92,6 +102,52 @@ class ExcelHandler
             puts "            Parameter: #{values.parameter}"
             @method.add_parameter values.parameter
           end
+        end
+      end
+    }
+    interfaces << @interface
+    interfaces
+  end
+
+  def get_rest_interfaces(data)
+    interfaces = Array.new
+    @interface = Interface.new
+
+    data.each{|value|
+      
+      if value.nil? || value.length == 0
+        next
+      end
+
+      # New interface
+      if value.length == 1
+        unless @interface.empty?
+          interfaces << @interface
+        end
+
+        @interface = Interface.new
+
+        2.times {
+          puts ""
+        }
+        puts "-----------------------"
+
+        @interface.name = value[0].gsub(/[^a-zA-Z0-9]/,'')
+
+        puts "Interface: #{@interface.name}"
+
+      else # Same interface
+        values = get_values(value)
+        # New method
+        unless values.rest_method.eql?("")
+          @method = MethodDef.new
+          @method.name        = values.rest_method
+          @method.output      = values.rest_output
+          @method.parameters  = values.rest_parameters
+          @method.verb        = values.rest_http_verb
+          @method.uri         = values.rest_uri
+          @interface.add_method(@method)
+          puts "     Method: #{@method.name}"
         end
       end
     }

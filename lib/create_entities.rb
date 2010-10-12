@@ -1,25 +1,24 @@
 require 'line_values'
 require 'plantuml_handler'
-require 'excel_handler'
+require 'csv_handler'
 require 'entity'
 
 if __FILE__ == $0
 
   PLANTUML_FOLDER = "/Users/jdbd/bin/"
 
-  ORIGIN_FILE   = "JajahEntities.csv"
-  DEST_FILE     = "jajah_entities.txt"
-  IMAGE_FILE    = "jajah_entities.png"
+  ORIGIN_FILE   = "Entities.csv"
+  DEST_FILE     = "entities.txt"
+  IMAGE_FILE    = "entities.png"
 
   HEADER_LINES    = 2
 
-  excel_handler = ExcelHandler.new(ORIGIN_FILE, ";", HEADER_LINES)
-
   # 1. load data
-  data = excel_handler.read_file
+  csv_handler = CsvHandler.new(ORIGIN_FILE, ";", HEADER_LINES)
+  data = csv_handler.read_file
 
   # 2.- convert CSV data into valid objects
-  entities = excel_handler.get_entities(data)
+  entities = csv_handler.get_entities(data)
 
   # 3.- generate file with valid plantUML format
   uml = PlantumlHandler.new
@@ -27,9 +26,9 @@ if __FILE__ == $0
 
   entities.each{|entity|
     uml.add ""
-    uml.add "class #{entity.name}"
+    uml.add_class(entity.name)
     entity.attributes.each{|attribute|
-      uml.add "#{entity.name} : #{attribute}"
+      uml.add_attribute(attribute)
     }
   }
   

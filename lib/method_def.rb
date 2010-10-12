@@ -3,6 +3,8 @@ class MethodDef
   attr_accessor :name
   attr_accessor :parameters
   attr_accessor :output
+  attr_accessor :verb
+  attr_accessor :uri
 
   def initialize(*args)
     unless args.nil? || args.empty?

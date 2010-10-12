@@ -1,4 +1,4 @@
-@startuml img/jajah_interfaces.png
+@startuml img/interfaces.png
 
 interface PartnerPlanManagement
 PartnerPlanManagement : getPartnerDefintion (  ) : E:Partner-Definition

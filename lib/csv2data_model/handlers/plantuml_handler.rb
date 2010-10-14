@@ -62,6 +62,10 @@ module Csv2dataModel
         }
       end
 
+      def generate_image(plantuml_folder, definition)
+        `java -cp #{plantuml_folder}/plantuml.jar -jar #{plantuml_folder}/plantuml.jar #{definition}`
+      end
+
     end
 
   end

@@ -1,0 +1,17 @@
+general:
+  plantuml_folder: /Users/jdbd/bin/
+rest_interfaces:
+  origin_file: input/RestInterfaces.csv
+  dest_file: output/rest_interfaces_wiki.txt
+  header_lines: 2
+entities:
+  origin_file: input/Entities.csv
+  dest_file: output/entities.txt
+  dest_file_wiki: output/entities_wiki.txt
+  image_file: entities.png
+  header_lines: 2
+interfaces:
+  origin_file: input/Interfaces.csv
+  dest_file: output/interfaces.txt
+  image_file: interfaces.png
+  header_lines: 4

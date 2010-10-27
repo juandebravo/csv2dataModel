@@ -1,0 +1,18 @@
+During last weeks I've been working in a project where the data model specification
+were being done by the product team using an Excel document.
+
+I didn't feel confortable with this specification as macros didn't work properly
+in my MacOS and it was hard to find the information required in each time.
+
+So I've created a script that gets as input a CSV, easily exported from Excel, and
+generates two output files:
+
+- the class diagram that defines both entities and interfaces: it's done in two
+phases. First create a text based file with the information required to use plantUML
+and generate the graphics associated to the model.
+
+- MediaWiki formatted files with the information of both entities and interfaces and
+the links required between pages.
+
+PlantUML is a drawing tool that can be use to generate sequence, use case, class,
+activity diagrams...

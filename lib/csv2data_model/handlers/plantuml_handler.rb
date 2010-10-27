@@ -7,9 +7,9 @@ module Csv2dataModel
 
       attr_accessor :file_name
 
-      def initialize
+      def initialize(file_name = nil)
         @uml = []
-        @file_name = "uml_file.png"
+        @file_name = file_name.nil? ? "uml_file.png" : file_name
       end
 
       # Generic method to insert a new line in the uml definition
@@ -26,7 +26,7 @@ module Csv2dataModel
       end
 
       # Create a new line defining a class attribute
-      # In no klass is received, current_class is used
+      # If no klass is received, current_class is used
       def add_attribute(attr, klass = nil)
         klass.nil? and klass = @current_klass
         add "#{klass} : #{attr}"
@@ -45,6 +45,8 @@ module Csv2dataModel
         add "#{interface} : #{method} ( #{parameters.join(',')} ) : #{output.empty? ? "void" : output}"
       end
 
+      # Initial line to start UML file
+      # file_name: the file where the image will be generated
       def start_uml(file_name = nil)
         _file_name = file_name.nil? ? @file_name : file_name
         add("@startuml #{_file_name}")

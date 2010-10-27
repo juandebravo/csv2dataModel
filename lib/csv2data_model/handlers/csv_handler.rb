@@ -14,7 +14,7 @@ module Csv2dataModel
       def initialize(path_to_file = nil, separator = nil, omit_lines = 0)
         @path_to_file = path_to_file
         @separator = separator
-        @omit_lines = omit_lines
+        @omit_lines = omit_lines.to_i
       end
 
       def read_file(path_to_file = nil, separator = nil, omit_lines = -1)

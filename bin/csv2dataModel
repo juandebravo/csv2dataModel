@@ -1,0 +1,73 @@
+#!/usr/bin/ruby
+$: << File.expand_path(File.dirname(__FILE__) + '/../lib')
+require 'rubygems'
+require 'gli'
+require 'csv2data_model'
+
+include GLI
+
+desc 'Generate UML diagram'
+switch [:u,:uml]
+
+desc 'Generate Mediawiki data'
+switch [:w,:wiki]
+
+desc 'Input csv file'
+#default_value 'origin.csv'
+arg_name 'Input CSV file to load data from'
+flag [:i,:input]
+
+desc 'Number of head lines to skip from the CSV'
+#default_value '0'
+arg_name 'Head lines to skip'
+flag [:h,:headlines]
+
+desc 'PlantUML folder'
+#default_value '/usr/bin'
+arg_name 'PlantUML folder'
+flag [:p,:plantuml]
+
+
+desc 'Describe create_entities here'
+arg_name 'Describe arguments to create_entities here'
+command :create_entities do |c|
+  c.action do |global_options,options,args|
+    Csv2dataModel::Main.create_entities(global_options[:i], global_options[:h], global_options[:u], global_options[:w], global_options[:p])
+  end
+end
+
+desc 'Describe create_interfaces here'
+arg_name 'Describe arguments to create_interfaces here'
+command :create_interfaces do |c|
+  c.action do |global_options,options,args|
+    Csv2dataModel::Main.create_interfaces(global_options[:i], global_options[:h], global_options[:u], global_options[:p])
+  end
+end
+
+desc 'Describe create_rest here'
+arg_name 'Describe arguments to create_rest here'
+command :create_rest do |c|
+  c.action do |global_options,options,args|
+    p global_options
+    Csv2dataModel::Main.create_rest(global_options[:i], global_options[:h])
+  end
+end
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed; false to abourt and not call the
+  # chosen command
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic here
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+GLI.run(ARGV)

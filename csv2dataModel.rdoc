@@ -1,0 +1,38 @@
+= <tt>csv2dataModel2</tt>
+
+    csv2dataModel2 [global options] command_name [command-specific options] [--] arguments...
+
+* Use the command +help+ to get a summary of commands
+* Use the command <tt>help command_name</tt> to get a help for +command_name+
+* Use <tt>--</tt> to stop command line argument processing; useful if your arguments have dashes in them
+
+== Global Options
+These options are available for any command and are specified before the name of the command
+
+[<tt>-h, --headlines=Head lines to skip</tt>] Number of head lines to skip from the CSV
+[<tt>-i, --input=Input CSV file to load data from</tt>] Input csv file
+[<tt>-p, --plantuml=PlantUML folder</tt>] PlantUML folder
+[<tt>-u, --uml</tt>] Generate UML diagram
+[<tt>-w, --wiki</tt>] Generate Mediawiki data
+== Commands
+[<tt>create_entities</tt>] Describe create_entities here
+[<tt>create_interfaces</tt>] Describe create_interfaces here
+[<tt>create_rest</tt>] Describe create_rest here
+[<tt>help</tt>] Shows list of commands or help for one command
+
+=== <tt>create_entities Describe arguments to create_entities here</tt>
+
+Describe create_entities here
+
+=== <tt>create_interfaces Describe arguments to create_interfaces here</tt>
+
+Describe create_interfaces here
+
+=== <tt>create_rest Describe arguments to create_rest here</tt>
+
+Describe create_rest here
+
+=== <tt>help [command]</tt>
+
+Shows list of commands or help for one command
+

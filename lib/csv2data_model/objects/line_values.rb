@@ -7,7 +7,8 @@ module Csv2dataModel
       INTERFACE_INDEX   = 0
       METHOD_INDEX      = 1
       PARAMETER_INDEX   = 3
-      OUTPUT_INDEX      = 5
+      OUTPUT_INDEX      = 8
+      METHOD_DEFINITION = 10
 
       # Constants that define where the Entity data is located
       ENTITY_INDEX      = 1
@@ -51,6 +52,10 @@ module Csv2dataModel
 
       def output
         get_value(OUTPUT_INDEX)
+      end
+
+      def description
+        get_value(METHOD_DEFINITION)
       end
 
       # Entity methods

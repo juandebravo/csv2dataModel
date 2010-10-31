@@ -83,10 +83,11 @@ module Csv2dataModel
 
             # In the same line of new Interface, probably a method is defined
             unless values.method.eql?("")
-              puts "     Method: #{values.method}"
               @method = MethodDef.new
-              @method.name = values.method
+              @method.name   = values.method
               @method.output = values.output
+              @method.description = values.description
+              puts "     Method: #{@method.name} -> #{@method.description} : #{@method.output}"
             end
 
             unless values.parameter.nil? || values.parameter.eql?("")
@@ -100,7 +101,8 @@ module Csv2dataModel
               @method = MethodDef.new
               @method.name = values.method
               @method.output = values.output
-              puts "     Method: #{@method.name}"
+              @method.description = values.description
+              puts "     Method: #{@method.name} -> #{@method.description} : #{@method.output}"
             else # get parameter for current method
               unless values.parameter.nil? || values.parameter.eql?("")
                 puts "            Parameter: #{values.parameter}"
@@ -109,6 +111,7 @@ module Csv2dataModel
             end
           end
         }
+        @interface << @method
         interfaces << @interface
         interfaces
       end

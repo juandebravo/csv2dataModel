@@ -1,6 +1,7 @@
 
 module Csv2dataModel
   module Handlers
+
     #
     # Class that handles the definition and creation of information related
     # to UML diagrams in MediaWiki format.
@@ -30,16 +31,20 @@ module Csv2dataModel
         @link_to_entity = true
       end
 
+      #
       # Generic method to insert a new line in the media wiki definition
+      #
       def add(text)
         @lines ||= []
         @lines.push text
       end
 
       #
+      # REST Interface
+      # 
       # Inserts a new interface name
       #
-      def add_interface(interface)
+      def add_rest_interface(interface)
         @lines ||= []
         @lines.push "! colspan='5' style='background:#ABE' | #{interface}"
         @lines.push "|-"
@@ -49,12 +54,48 @@ module Csv2dataModel
       # Inserts a new method: name, uri, HTTP verb, parameters and output
       # Each parameter is linked to the entity wiki page if desired
       #
-      def add_method(name, uri, verb, parameters, output)
+      def add_rest_method(name, uri, verb, parameters, output)
         @lines ||= []
         _add_cell(name)
         _add_cell(uri)
         _add_cell(verb)
+        _add_cell(_format_rest_value(parameters))
+        _add_cell(_format_rest_value(output))
+        @lines.push "|-"
+      end
+
+      #
+      # SOAP INTERFACE
+      #
+      # Inserts a new interface name
+      #
+
+      def start_page
+        @lines ||= []
+        @lines.push "{|border=\"0\" cellpadding=\"2\" width=\"95%\""
+        @lines.push "|#{CELL_STYLE} width=20%| Method"
+        @lines.push "|#{CELL_STYLE} width=45%| Description"
+        @lines.push "|#{CELL_STYLE} width=20%| Parameters"
+        @lines.push "|#{CELL_STYLE} width=15%| Output"
+        @lines.push "|-"
+      end
+
+      def add_interface(interface)
+        @lines ||= []
+        @lines.push "! colspan='4' style='background:#ABE' | #{interface}"
+        @lines.push "|-"
+      end
+
+      #
+      # Inserts a new method: name, description, parameters and output
+      # Each parameter is linked to the entity wiki page if desired
+      #
+      def add_method(name, description, parameters, output)
+        @lines ||= []
+        _add_cell(name)
+        _add_cell(description)
         _add_cell(_format_value(parameters))
+        output = output.gsub(/[^a-zA-Z\n]/, '')
         _add_cell(_format_value(output))
         @lines.push "|-"
       end
@@ -77,7 +118,7 @@ module Csv2dataModel
         @lines.push "<br/>"
       end
 
-      def start_page
+      def start_rest_page
         @lines ||= []
         @lines.push "{|border=\"0\" cellpadding=\"2\" width=\"95%\""
         @lines.push "|#{CELL_STYLE} width=20%| Method"
@@ -110,6 +151,24 @@ module Csv2dataModel
         if value.nil? or value.empty?
           return value
         end
+        if value.instance_of?(Array)
+          value = value.join("\n")
+        end
+        @link_to_entity and 
+          value = value.split("\n").collect {|s|
+            "[[Entities##{s.downcase}|#{s}]]"
+          }.join("\n")
+        value
+      end
+
+      def _format_rest_value(value)
+        if value.nil? or value.empty?
+          return value
+        end
+        if value.instance_of?(Array)
+          value = value.join("\n")
+        end
+        #value = value.gsub(/[^a-zA-Z\(\)\n]/, '')
         value = value.gsub(/[\n]/,'<br/>')
         @link_to_entity and value = value.gsub(/\([a-zA-Z]*\)/) {|s| "([[Entities#e#{s[1..-2].downcase}]])"}
         value

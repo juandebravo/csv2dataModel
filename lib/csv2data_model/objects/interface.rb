@@ -15,6 +15,11 @@ module Csv2dataModel::Objects
       end
     end
 
+    def <<(method)
+      @methods ||= []
+      @methods.push method
+    end
+
     def add_method(method)
       @methods ||= []
       @methods.push method

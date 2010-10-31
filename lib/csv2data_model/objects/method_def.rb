@@ -7,16 +7,19 @@ module Csv2dataModel::Objects
     attr_accessor :output
     attr_accessor :verb
     attr_accessor :uri
+    attr_accessor :description
 
     def initialize(*args)
       unless args.nil? || args.empty?
         @name       = *args[0]
         @parameters = *args[1]
         @output     = *args[2]
+        @description= *args[3]
       else
         @name       = nil
         @parameters = []
         @output     = nil
+        @description= nil
       end
     end
 

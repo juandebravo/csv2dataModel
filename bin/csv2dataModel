@@ -40,7 +40,7 @@ desc 'Describe create_interfaces here'
 arg_name 'Describe arguments to create_interfaces here'
 command :create_interfaces do |c|
   c.action do |global_options,options,args|
-    Csv2dataModel::Main.create_interfaces(global_options[:i], global_options[:h], global_options[:u], global_options[:p])
+    Csv2dataModel::Main.create_interfaces(global_options[:i], global_options[:h], global_options[:u], global_options[:w], global_options[:p])
   end
 end
 

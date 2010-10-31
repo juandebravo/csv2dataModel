@@ -16,6 +16,7 @@ entities:
 interfaces:
   input_file: input/Interfaces.csv
   output_file: output/interfaces.txt
+  output_file_wiki: output/interfaces_wiki.txt
   image_file: interfaces.png
   header_lines: 4
   generate_uml: true

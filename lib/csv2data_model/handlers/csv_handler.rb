@@ -103,11 +103,11 @@ module Csv2dataModel
               @method.output = values.output
               @method.description = values.description
               puts "     Method: #{@method.name} -> #{@method.description} : #{@method.output}"
-            else # get parameter for current method
-              unless values.parameter.nil? || values.parameter.eql?("")
+            end
+            # Get parameter for current method
+            unless values.parameter.nil? || values.parameter.eql?("")
                 puts "            Parameter: #{values.parameter}"
                 @method.add_parameter values.parameter
-              end
             end
           end
         }

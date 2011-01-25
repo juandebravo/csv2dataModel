@@ -15,5 +15,10 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc','csv2dataModel2.rdoc']
   s.rdoc_options << '--title' << 'Git Like Interface' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
+
+  # Add dependencies
+  s.add_dependency("gli" , ">=1.1.1")
+  s.add_dependency("fastercsv" , ">=1.5.3")
+
   s.executables << 'csv2dataModel'
 end
